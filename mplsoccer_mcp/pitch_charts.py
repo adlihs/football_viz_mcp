@@ -937,8 +937,8 @@ def render_pitch_chart(*, pitch: PitchConfig | None, layers: list[Layer], datase
         vertical = bool(pitch and (pitch.vertical if isinstance(pitch, PitchConfig) else pitch.get("vertical")))
         need_cbar = figure.colorbar
         fig, axs = p.grid(figheight=figure.figheight, nrows=nrows, ncols=ncols,
-                          grid_height=0.76 if n == 1 else 0.78, title_height=0.08 if n == 1 else 0.07,
-                          endnote_height=0.04, title_space=0.02, endnote_space=0.02,
+                          grid_height=0.76 if n == 1 else 0.72, title_height=0.08 if n == 1 else 0.09,
+                          endnote_height=0.04, title_space=0.02 if n == 1 else 0.07, endnote_space=0.02,
                           space=0.08 if n > 1 else 0.05, axis=False,
                           grid_width=0.9 if need_cbar and vertical else 0.95)
         fig.set_facecolor(theme["background"])
