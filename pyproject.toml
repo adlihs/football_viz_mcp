@@ -1,0 +1,19 @@
+[project]
+name = "mplsoccer-mcp"
+version = "1.0.0"
+description = "MCP server that exposes mplsoccer football (soccer) charts to any LLM"
+requires-python = ">=3.11"
+dependencies = [
+  "mcp>=2.3,<3", "mplsoccer>=1.8.1", "matplotlib>=3.9", "seaborn>=0.13", "scipy>=1.13",
+  "numpy>=2.0", "pandas>=2.2", "openpyxl>=3.1", "python-multipart>=0.0.20", "uvicorn>=0.30", "starlette>=0.40", "boto3>=1.34",
+]
+
+[project.scripts]
+mplsoccer-mcp = "mplsoccer_mcp.app:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["mplsoccer_mcp"]

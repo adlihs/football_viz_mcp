@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: mplsoccer-mcp
+    runtime: docker
+    plan: free            # cambia a "starter" para evitar que se duerma tras 15 min sin uso
+    healthCheckPath: /health
+    envVars:
+      - key: MCP_API_KEY
+        generateValue: true
+      - key: PUBLIC_BASE_URL
+        sync: false
+      # Opcional: guardar datasets en Cloudflare R2 para que sobrevivan cuando el servicio se duerme
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_BUCKET_NAME
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false

@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mplsoccer-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "observability": { "enabled": true },
+
+  "containers": [
+    {
+      "class_name": "MplsoccerContainer",
+      "image": "../Dockerfile",
+      "image_build_context": "..",
+      // standard-1 = 1/2 vCPU, 4 GiB RAM. "basic" (1 GiB) also works for small datasets.
+      "instance_type": "standard-1",
+      "max_instances": 3
+    }
+  ],
+  "durable_objects": {
+    "bindings": [{ "name": "MPLSOCCER", "class_name": "MplsoccerContainer" }]
+  },
+  "exports": {
+    "MplsoccerContainer": { "type": "durable-object", "storage": "sqlite" }
+  },
+
+  "vars": {
+    // Fill these in (see README, section "Cloudflare"):
+    "R2_ACCOUNT_ID": "",            // your Cloudflare account id
+    "R2_BUCKET_NAME": "mplsoccer-mcp",
+    "PUBLIC_BASE_URL": "",          // e.g. https://mplsoccer-mcp.<your-subdomain>.workers.dev
+    "SLEEP_AFTER": "30m",           // container sleeps after this much inactivity
+    "INSTANCES": "1",               // >1 spreads load over several containers (needs R2)
+    "DATASET_TTL_HOURS": "168"      // datasets are deleted after 7 days
+  }
+  // Secrets (never put them here):
+  //   npx wrangler secret put MCP_API_KEY
+  //   npx wrangler secret put R2_ACCESS_KEY_ID
+  //   npx wrangler secret put R2_SECRET_ACCESS_KEY
+}

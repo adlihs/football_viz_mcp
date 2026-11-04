@@ -1,0 +1,6 @@
+__pycache__
+*.pyc
+test_output
+.git
+cloudflare/node_modules
+cloudflare/.wrangler

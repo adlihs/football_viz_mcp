@@ -1,0 +1,169 @@
+jornada,equipo,puntos,posicion
+1,Saprissa,1,8
+1,Alajuelense,3,1
+1,Herediano,3,2
+1,Cartaginés,0,10
+1,Liberia,3,3
+1,San Carlos,0,11
+1,Pérez Zeledón,1,9
+1,Puntarenas,3,4
+1,Guanacasteca,3,5
+1,Santos,3,6
+1,Sporting,0,12
+1,Municipal Grecia,3,7
+2,Saprissa,3,6
+2,Alajuelense,4,3
+2,Herediano,3,7
+2,Cartaginés,1,11
+2,Liberia,3,8
+2,San Carlos,3,9
+2,Pérez Zeledón,1,12
+2,Puntarenas,4,4
+2,Guanacasteca,6,1
+2,Santos,6,2
+2,Sporting,3,10
+2,Municipal Grecia,4,5
+3,Saprissa,3,10
+3,Alajuelense,7,2
+3,Herediano,6,3
+3,Cartaginés,2,11
+3,Liberia,6,4
+3,San Carlos,6,5
+3,Pérez Zeledón,1,12
+3,Puntarenas,4,8
+3,Guanacasteca,9,1
+3,Santos,6,6
+3,Sporting,4,9
+3,Municipal Grecia,5,7
+4,Saprissa,7,3
+4,Alajuelense,8,2
+4,Herediano,6,4
+4,Cartaginés,5,9
+4,Liberia,6,5
+4,San Carlos,6,6
+4,Pérez Zeledón,4,11
+4,Puntarenas,5,10
+4,Guanacasteca,12,1
+4,Santos,6,7
+4,Sporting,4,12
+4,Municipal Grecia,6,8
+5,Saprissa,10,2
+5,Alajuelense,9,3
+5,Herediano,8,6
+5,Cartaginés,6,9
+5,Liberia,9,4
+5,San Carlos,6,10
+5,Pérez Zeledón,7,7
+5,Puntarenas,5,12
+5,Guanacasteca,15,1
+5,Santos,6,11
+5,Sporting,7,8
+5,Municipal Grecia,9,5
+6,Saprissa,10,5
+6,Alajuelense,10,6
+6,Herediano,11,4
+6,Cartaginés,6,12
+6,Liberia,12,2
+6,San Carlos,7,10
+6,Pérez Zeledón,10,7
+6,Puntarenas,8,9
+6,Guanacasteca,18,1
+6,Santos,7,11
+6,Sporting,10,8
+6,Municipal Grecia,12,3
+7,Saprissa,10,6
+7,Alajuelense,10,7
+7,Herediano,12,4
+7,Cartaginés,7,11
+7,Liberia,15,2
+7,San Carlos,10,8
+7,Pérez Zeledón,10,9
+7,Puntarenas,9,10
+7,Guanacasteca,18,1
+7,Santos,7,12
+7,Sporting,11,5
+7,Municipal Grecia,15,3
+8,Saprissa,14,4
+8,Alajuelense,10,9
+8,Herediano,13,6
+8,Cartaginés,10,10
+8,Liberia,15,3
+8,San Carlos,13,7
+8,Pérez Zeledón,10,11
+8,Puntarenas,12,8
+8,Guanacasteca,21,1
+8,Santos,10,12
+8,Sporting,14,5
+8,Municipal Grecia,18,2
+9,Saprissa,14,6
+9,Alajuelense,14,7
+9,Herediano,16,5
+9,Cartaginés,13,8
+9,Liberia,18,3
+9,San Carlos,13,9
+9,Pérez Zeledón,13,10
+9,Puntarenas,12,12
+9,Guanacasteca,24,1
+9,Santos,13,11
+9,Sporting,17,4
+9,Municipal Grecia,21,2
+10,Saprissa,15,9
+10,Alajuelense,18,5
+10,Herediano,18,6
+10,Cartaginés,16,7
+10,Liberia,19,4
+10,San Carlos,16,8
+10,Pérez Zeledón,13,11
+10,Puntarenas,13,12
+10,Guanacasteca,27,1
+10,Santos,14,10
+10,Sporting,20,3
+10,Municipal Grecia,21,2
+11,Saprissa,17,8
+11,Alajuelense,21,4
+11,Herediano,21,5
+11,Cartaginés,16,9
+11,Liberia,22,3
+11,San Carlos,19,7
+11,Pérez Zeledón,16,10
+11,Puntarenas,13,12
+11,Guanacasteca,27,1
+11,Santos,15,11
+11,Sporting,23,2
+11,Municipal Grecia,21,6
+12,Saprissa,20,8
+12,Alajuelense,21,6
+12,Herediano,23,4
+12,Cartaginés,19,9
+12,Liberia,25,2
+12,San Carlos,22,5
+12,Pérez Zeledón,16,10
+12,Puntarenas,13,12
+12,Guanacasteca,27,1
+12,Santos,15,11
+12,Sporting,24,3
+12,Municipal Grecia,21,7
+13,Saprissa,20,9
+13,Alajuelense,22,6
+13,Herediano,23,5
+13,Cartaginés,22,7
+13,Liberia,25,3
+13,San Carlos,22,8
+13,Pérez Zeledón,16,11
+13,Puntarenas,14,12
+13,Guanacasteca,30,1
+13,Santos,18,10
+13,Sporting,27,2
+13,Municipal Grecia,24,4
+14,Saprissa,20,10
+14,Alajuelense,23,8
+14,Herediano,26,3
+14,Cartaginés,25,4
+14,Liberia,25,5
+14,San Carlos,25,6
+14,Pérez Zeledón,19,11
+14,Puntarenas,17,12
+14,Guanacasteca,33,1
+14,Santos,21,9
+14,Sporting,27,2
+14,Municipal Grecia,24,7
