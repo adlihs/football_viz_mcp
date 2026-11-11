@@ -1,5 +1,5 @@
 /**
- * Cloudflare Worker in front of the mplsoccer MCP server.
+ * Cloudflare Worker in front of the football_viz_mcp MCP server.
  *
  * The Python server (../Dockerfile) runs inside a Cloudflare Container. This Worker:
  *  - checks the API key BEFORE waking the container (bots and scanners never cost you container time),
@@ -9,7 +9,7 @@
 import { Container, getContainer, getRandom } from "@cloudflare/containers";
 
 export interface Env {
-  MPLSOCCER: DurableObjectNamespace<MplsoccerContainer>;
+  FOOTBALL_VIZ: DurableObjectNamespace<FootballVizContainer>;
   // secrets (wrangler secret put ...)
   MCP_API_KEY?: string;
   R2_ACCESS_KEY_ID?: string;
@@ -32,7 +32,7 @@ const PASS_THROUGH_VARS = [
   "PUBLIC_BASE_URL",
 ] as const;
 
-export class MplsoccerContainer extends Container<Env> {
+export class FootballVizContainer extends Container<Env> {
   defaultPort = 8000;
   // How long the container stays awake after the last request. Datasets are kept in R2,
   // so a sleeping container loses nothing; it only costs a cold start (~10-20 s) on the next call.
@@ -48,7 +48,7 @@ export class MplsoccerContainer extends Container<Env> {
       const v = env[k];
       if (v) vars[k] = v;
     }
-    if (env.DATASET_TTL_HOURS) vars.MPLSOCCER_MCP_DATASET_TTL_HOURS = env.DATASET_TTL_HOURS;
+    if (env.DATASET_TTL_HOURS) vars.FOOTBALL_VIZ_MCP_DATASET_TTL_HOURS = env.DATASET_TTL_HOURS;
     this.envVars = vars;
   }
 
@@ -92,7 +92,7 @@ export default {
 
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: CORS });
     if (pathname === "/" ) {
-      return Response.json({ name: "mplsoccer MCP server", mcp: "/mcp", upload: "/upload", health: "/health" });
+      return Response.json({ name: "football_viz_mcp MCP server", mcp: "/mcp", upload: "/upload", health: "/health" });
     }
     // chart links use unguessable random ids and are public; everything else needs the key
     const isPublic = pathname === "/health" || pathname.startsWith("/charts/");
@@ -105,7 +105,7 @@ export default {
 
     const instances = Math.max(1, parseInt(env.INSTANCES ?? "1", 10) || 1);
     const container =
-      instances > 1 ? await getRandom(env.MPLSOCCER, instances) : getContainer(env.MPLSOCCER, "main");
+      instances > 1 ? await getRandom(env.FOOTBALL_VIZ, instances) : getContainer(env.FOOTBALL_VIZ, "main");
     return container.fetch(request);
   },
 } satisfies ExportedHandler<Env>;

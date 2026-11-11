@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: mplsoccer-mcp
+    name: football-viz-mcp
     runtime: docker
     plan: free            # cambia a "starter" para evitar que se duerma tras 15 min sin uso
     healthCheckPath: /health

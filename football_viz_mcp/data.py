@@ -27,10 +27,10 @@ import numpy as np
 import pandas as pd
 from pydantic import BaseModel, Field
 
-MAX_ROWS = int(os.getenv("MPLSOCCER_MCP_MAX_ROWS", "500000"))
-MAX_DOWNLOAD_BYTES = int(os.getenv("MPLSOCCER_MCP_MAX_DOWNLOAD_MB", "50")) * 1024 * 1024
-ALLOW_URLS = os.getenv("MPLSOCCER_MCP_ALLOW_URLS", "true").lower() in ("1", "true", "yes")
-ALLOW_PRIVATE_URLS = os.getenv("MPLSOCCER_MCP_ALLOW_PRIVATE_URLS", "false").lower() in ("1", "true", "yes")
+MAX_ROWS = int(os.getenv("FOOTBALL_VIZ_MCP_MAX_ROWS", "500000"))
+MAX_DOWNLOAD_BYTES = int(os.getenv("FOOTBALL_VIZ_MCP_MAX_DOWNLOAD_MB", "50")) * 1024 * 1024
+ALLOW_URLS = os.getenv("FOOTBALL_VIZ_MCP_ALLOW_URLS", "true").lower() in ("1", "true", "yes")
+ALLOW_PRIVATE_URLS = os.getenv("FOOTBALL_VIZ_MCP_ALLOW_PRIVATE_URLS", "false").lower() in ("1", "true", "yes")
 
 
 from mcp.server.mcpserver.exceptions import ToolError as _MCPToolError
@@ -154,9 +154,9 @@ def make_backend() -> LocalBackend | S3Backend | None:
         return S3Backend(bucket, endpoint,
                          os.getenv("R2_ACCESS_KEY_ID") or os.getenv("AWS_ACCESS_KEY_ID"),
                          os.getenv("R2_SECRET_ACCESS_KEY") or os.getenv("AWS_SECRET_ACCESS_KEY"),
-                         prefix=os.getenv("S3_PREFIX", "mplsoccer-mcp"))
-    if os.getenv("MPLSOCCER_MCP_DATA_DIR"):
-        return LocalBackend(os.environ["MPLSOCCER_MCP_DATA_DIR"])
+                         prefix=os.getenv("S3_PREFIX", "football-viz-mcp"))
+    if os.getenv("FOOTBALL_VIZ_MCP_DATA_DIR"):
+        return LocalBackend(os.environ["FOOTBALL_VIZ_MCP_DATA_DIR"])
     return None
 
 
@@ -167,8 +167,8 @@ class DataStore:
     def __init__(self) -> None:
         self._lock = threading.Lock()
         self._items: dict[str, Dataset] = {}
-        self.ttl = float(os.getenv("MPLSOCCER_MCP_DATASET_TTL_HOURS", "72")) * 3600
-        self.max_items = int(os.getenv("MPLSOCCER_MCP_MAX_DATASETS", "200"))
+        self.ttl = float(os.getenv("FOOTBALL_VIZ_MCP_DATASET_TTL_HOURS", "72")) * 3600
+        self.max_items = int(os.getenv("FOOTBALL_VIZ_MCP_MAX_DATASETS", "200"))
         self.backend = make_backend()
 
     # persistence ------------------------------------------------------------
@@ -344,7 +344,7 @@ class _NoPrivateRedirect(urllib.request.HTTPRedirectHandler):
 def fetch_url(url: str) -> tuple[bytes, str]:
     url = _check_url(_google_sheets_to_csv(url.strip()))
     opener = urllib.request.build_opener(_NoPrivateRedirect())
-    req = urllib.request.Request(url, headers={"User-Agent": "mplsoccer-mcp/1.0"})
+    req = urllib.request.Request(url, headers={"User-Agent": "football-viz-mcp/1.0"})
     try:
         with opener.open(req, timeout=30) as resp:
             ctype = resp.headers.get("Content-Type", "")

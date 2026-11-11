@@ -1,4 +1,4 @@
-# mplsoccer MCP Server
+# football_viz_mcp
 
 Servidor **MCP (Model Context Protocol)** que expone los gráficos de la librería
 [mplsoccer](https://mplsoccer.readthedocs.io) como herramientas. Cualquier LLM compatible con MCP
@@ -54,8 +54,8 @@ fuera de la cancha, el resumen avisa que el `pitch_type` probablemente es incorr
 
 ```bash
 pip install -r requirements.txt
-python -m mplsoccer_mcp            # HTTP en http://localhost:8000/mcp
-python -m mplsoccer_mcp --stdio    # modo stdio (Claude Desktop, Cursor...)
+python -m football_viz_mcp            # HTTP en http://localhost:8000/mcp
+python -m football_viz_mcp --stdio    # modo stdio (Claude Desktop, Cursor...)
 ```
 
 Prueba completa (llama a todas las herramientas por HTTP y guarda las imágenes):
@@ -70,8 +70,8 @@ python tests/smoke_test.py "http://localhost:8000/mcp" salida/
 Con Docker (Render, Railway, Fly.io, Google Cloud Run, un VPS…):
 
 ```bash
-docker build -t mplsoccer-mcp .
-docker run -p 8000:8000 -e MCP_API_KEY=tu-clave -e PUBLIC_BASE_URL=https://tu-dominio mplsoccer-mcp
+docker build -t football-viz-mcp .
+docker run -p 8000:8000 -e MCP_API_KEY=tu-clave -e PUBLIC_BASE_URL=https://tu-dominio football-viz-mcp
 ```
 
 En **Render** basta con conectar el repositorio: el archivo `render.yaml` ya define el servicio y genera la
@@ -93,11 +93,11 @@ npm install
 npx wrangler login                                   # abre el navegador para autorizar tu cuenta
 
 # 1) Bucket R2 para los datasets y gráficos
-npx wrangler r2 bucket create mplsoccer-mcp
+npx wrangler r2 bucket create football-viz-mcp
 ```
 
 2) **Credenciales de R2**: en el panel de Cloudflare → *R2* → *Manage API tokens* → *Create API token*,
-permiso **Object Read & Write**, limitado al bucket `mplsoccer-mcp`. Copia el *Access Key ID* y el
+permiso **Object Read & Write**, limitado al bucket `football-viz-mcp`. Copia el *Access Key ID* y el
 *Secret Access Key* (el secreto solo se muestra una vez). Tu *Account ID* aparece en la misma página de R2.
 
 3) Pon tu Account ID en `cloudflare/wrangler.jsonc` → `vars.R2_ACCOUNT_ID`.
@@ -116,7 +116,7 @@ npx wrangler secret put R2_SECRET_ACCESS_KEY
 npx wrangler deploy
 ```
 
-Al terminar muestra la URL, por ejemplo `https://mplsoccer-mcp.tu-subdominio.workers.dev`.
+Al terminar muestra la URL, por ejemplo `https://football-viz-mcp.tu-subdominio.workers.dev`.
 Cópiala en `vars.PUBLIC_BASE_URL` del `wrangler.jsonc` y ejecuta `npx wrangler deploy` otra vez para que
 cada gráfico incluya su enlace de descarga. **Espera unos minutos** después del primer despliegue: el
 contenedor tarda en aprovisionarse y mientras tanto las peticiones pueden fallar.
@@ -136,7 +136,7 @@ segundos porque despierta el contenedor). La URL para conectar el cliente MCP es
 
 **Comandos útiles**: `npx wrangler tail` (ver logs en vivo), `npx wrangler containers list`
 (estado de los contenedores). Para que los gráficos viejos se borren solos, en el panel de R2 →
-bucket → *Settings* → *Object lifecycle rules*, agrega una regla para el prefijo `mplsoccer-mcp/charts/`
+bucket → *Settings* → *Object lifecycle rules*, agrega una regla para el prefijo `football-viz-mcp/charts/`
 (por ejemplo, borrar a los 30 días).
 
 ### Variables de entorno
@@ -147,12 +147,12 @@ bucket → *Settings* → *Object lifecycle rules*, agrega una regla para el pre
 | `PUBLIC_BASE_URL` | — | Agrega un enlace de descarga `…/charts/<id>.png` a cada gráfico (los enlaces son públicos pero imposibles de adivinar) |
 | `PORT` / `HOST` | 8000 / 0.0.0.0 | |
 | `R2_BUCKET_NAME`, `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | — | Guarda datasets y gráficos en Cloudflare R2 (sobreviven reinicios) |
-| `S3_ENDPOINT_URL`, `S3_PREFIX` | — / `mplsoccer-mcp` | Para usar otro almacenamiento compatible con S3 en vez de R2 |
-| `MPLSOCCER_MCP_DATA_DIR` | — | Alternativa sin R2: carpeta en disco para los datasets |
-| `MPLSOCCER_MCP_DATASET_TTL_HOURS` | 72 | Tiempo de vida de un dataset |
-| `MPLSOCCER_MCP_MAX_ROWS` | 500000 | Límite de filas por dataset |
-| `MPLSOCCER_MCP_MAX_BODY_MB` | 25 | Tamaño máximo de una petición MCP |
-| `MPLSOCCER_MCP_ALLOW_URLS` | true | Permitir cargar datos desde URLs (se bloquean IPs privadas) |
+| `S3_ENDPOINT_URL`, `S3_PREFIX` | — / `football-viz-mcp` | Para usar otro almacenamiento compatible con S3 en vez de R2 |
+| `FOOTBALL_VIZ_MCP_DATA_DIR` | — | Alternativa sin R2: carpeta en disco para los datasets |
+| `FOOTBALL_VIZ_MCP_DATASET_TTL_HOURS` | 72 | Tiempo de vida de un dataset |
+| `FOOTBALL_VIZ_MCP_MAX_ROWS` | 500000 | Límite de filas por dataset |
+| `FOOTBALL_VIZ_MCP_MAX_BODY_MB` | 25 | Tamaño máximo de una petición MCP |
+| `FOOTBALL_VIZ_MCP_ALLOW_URLS` | true | Permitir cargar datos desde URLs (se bloquean IPs privadas) |
 
 ## 4. Conectar un cliente
 
@@ -160,16 +160,16 @@ URL del servidor: `https://tu-dominio/mcp` (con clave: `https://tu-dominio/mcp?k
 
 - **Claude (web / escritorio)**: Configuración → Conectores → *Agregar conector personalizado* → pega la URL
   (usa la variante `?key=` porque ese formulario no permite cabeceras).
-- **Claude Code**: `claude mcp add --transport http mplsoccer https://tu-dominio/mcp --header "Authorization: Bearer tu-clave"`
+- **Claude Code**: `claude mcp add --transport http football_viz_mcp https://tu-dominio/mcp --header "Authorization: Bearer tu-clave"`
 - **Cursor / VS Code / otros**: en la configuración MCP del cliente
   ```json
-  { "mcpServers": { "mplsoccer": { "url": "https://tu-dominio/mcp",
+  { "mcpServers": { "football_viz_mcp": { "url": "https://tu-dominio/mcp",
       "headers": { "Authorization": "Bearer tu-clave" } } } }
   ```
 - **Claude Desktop local (stdio)**:
   ```json
-  { "mcpServers": { "mplsoccer": { "command": "python", "args": ["-m", "mplsoccer_mcp", "--stdio"],
-      "cwd": "/ruta/a/mplsoccer-mcp" } } }
+  { "mcpServers": { "football_viz_mcp": { "command": "python", "args": ["-m", "football_viz_mcp", "--stdio"],
+      "cwd": "/ruta/a/football-viz-mcp" } } }
   ```
 
 ## 5. Cómo entrega el usuario sus datos
@@ -210,7 +210,7 @@ Ejemplo de llamada a `pitch_chart` (la llamada la escribe el LLM, no el usuario)
 ## 7. Estructura
 
 ```
-mplsoccer_mcp/
+football_viz_mcp/
   server.py        herramientas MCP
   pitch_charts.py  motor de capas sobre la cancha (todas las funciones de Pitch/VerticalPitch)
   other_charts.py  Radar, PyPizza, Bumpy, jointgrid

@@ -1,7 +1,7 @@
 {
-  "name": "mplsoccer-mcp-cloudflare",
+  "name": "football-viz-mcp-cloudflare",
   "version": "1.0.0",
-  "description": "Cloudflare Worker + Container for the mplsoccer MCP server",
+  "description": "Cloudflare Worker + Container for the football_viz_mcp MCP server",
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",

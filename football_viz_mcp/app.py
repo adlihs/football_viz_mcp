@@ -18,7 +18,7 @@ API_KEY = os.getenv("MCP_API_KEY", "").strip()
 PUBLIC_PATHS = {"/health"}
 
 UPLOAD_PAGE = """<!doctype html><html lang="es"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>mplsoccer MCP · Subir datos</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>football_viz_mcp · Subir datos</title>
 <style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;padding:0 16px;color:#1f2a2e}
 h1{font-size:1.4rem}form{display:grid;gap:12px;padding:20px;border:1px solid #ccd;border-radius:10px}
 button{padding:10px;border:0;border-radius:8px;background:#1b998b;color:#fff;font-size:1rem;cursor:pointer}
@@ -116,7 +116,7 @@ class AuthMiddleware:
 def create_app():
     from starlette.middleware.cors import CORSMiddleware
 
-    max_body = int(os.getenv("MPLSOCCER_MCP_MAX_BODY_MB", "25")) * 1024 * 1024
+    max_body = int(os.getenv("FOOTBALL_VIZ_MCP_MAX_BODY_MB", "25")) * 1024 * 1024
     inner = mcp.streamable_http_app(streamable_http_path="/mcp", stateless_http=True, json_response=False,
                                     max_request_body_size=max_body, host="0.0.0.0")
     app = AuthMiddleware(inner)

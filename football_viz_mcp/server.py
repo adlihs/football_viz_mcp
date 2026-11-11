@@ -22,7 +22,7 @@ from .reference import reference
 from .render import PITCH_TYPES, PitchConfig, make_pitch, theme_of
 
 PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "").rstrip("/")
-MAX_CHARTS = int(os.getenv("MPLSOCCER_MCP_MAX_CHARTS", "300"))
+MAX_CHARTS = int(os.getenv("FOOTBALL_VIZ_MCP_MAX_CHARTS", "300"))
 
 INSTRUCTIONS = """\
 Football (soccer) chart server built on the Python library mplsoccer. The user brings their own data
@@ -35,7 +35,7 @@ Always set pitch.pitch_type to match the data's coordinate system (describe_data
 Call get_reference for the full list of layer options. Charts are returned as PNG images with a text summary.
 """
 
-mcp = MCPServer(name="mplsoccer", title="mplsoccer charts", instructions=INSTRUCTIONS, version="1.0.0")
+mcp = MCPServer(name="football_viz_mcp", title="Football Viz", instructions=INSTRUCTIONS, version="1.0.0")
 
 # --------------------------------------------------------------------------- #
 # chart cache (for download links)
